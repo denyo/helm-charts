@@ -82,10 +82,6 @@ spec:
 {{- if .Values.extraVolumeMounts }}
 {{ toYaml .Values.extraVolumeMounts | indent 16 }}
 {{ end }}
-{{ if .Values.command }}
-              command:
-{{ toYaml .Values.command | indent 16 }}
-{{- end }}
 {{- if .Values.dryrun }}
               args: [ "--dry-run", "--config", "/etc/es-curator/config.yml", "/etc/es-curator/action_file.yml" ]
 {{- else }}

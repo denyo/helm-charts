@@ -3,9 +3,9 @@ entries:
   elasticsearch-curator:
   - apiVersion: v1
     appVersion: 5.8.3
-    created: "2020-12-17T12:52:07.333186+01:00"
+    created: "2020-12-17T16:40:13.110253+01:00"
     description: A Helm chart for Elasticsearch Curator
-    digest: f60c0baab165034f697f0b7dc696eaef4d7c19d230f0f083255193efd6d3924d
+    digest: 6bc32b5cac899216a58cefd90b805f4e55754c376985b852c692d102ce6d13db
     home: https://github.com/denyo/helm-charts
     keywords:
     - curator
@@ -19,4 +19,4 @@ entries:
     urls:
     - https://denyo.github.io/helm-charts/elasticsearch-curator-2.2.4.tgz
     version: 2.2.4
-generated: "2020-12-17T12:52:07.332168+01:00"
+generated: "2020-12-17T16:40:13.108147+01:00"
