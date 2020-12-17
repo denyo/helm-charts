@@ -1,0 +1,14 @@
+apiVersion: v1
+appVersion: "5.8.3"
+description: A Helm chart for Elasticsearch Curator
+name: elasticsearch-curator
+version: 2.2.4
+home: https://github.com/denyo/curator
+keywords:
+  - curator
+  - elasticsearch
+  - elasticsearch-curator
+sources:
+  - https://github.com/kubernetes/charts/elasticsearch-curator
+  - https://github.com/pires/docker-elasticsearch-curator
+  - https://github.com/helm/charts/tree/master/stable/elasticsearch-curator
