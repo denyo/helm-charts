@@ -68,7 +68,6 @@ their default values.
 | `envFromSecrets`                     | Environment variables from secrets to the cronjob container | {}                                           |
 | `envFromSecrets.*.from.secret`       | - `secretKeyRef.name` used for environment variable         |                                              |
 | `envFromSecrets.*.from.key`          | - `secretKeyRef.key` used for environment variable          |                                              |
-| `command`                            | Command to execute                                          | ["/curator/curator"]                         |
 | `configMaps.action_file_yml`         | Contents of the Curator action_file.yml                     | See values.yaml                              |
 | `configMaps.config_yml`              | Contents of the Curator config.yml (overrides config)       | See values.yaml                              |
 | `resources`                          | Resource requests and limits                                | {}                                           |

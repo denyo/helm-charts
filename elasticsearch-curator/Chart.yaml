@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "5.8.3"
 description: A Helm chart for Elasticsearch Curator
 name: elasticsearch-curator
-version: 2.2.4
+version: 2.2.5
 home: https://github.com/denyo/helm-charts
 keywords:
   - curator
