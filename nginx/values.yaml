@@ -15,7 +15,7 @@ deployment:
       cpu: 20m
       memory: 50Mi
   metrics:
-    enabled: true # controls if you want to deploy a sidecar container that provides metrics for prometheus
+    enabled: false # controls if you want to deploy a sidecar container that provides metrics for prometheus
     replicas: 1
     image:
       name: nginx/nginx-prometheus-exporter
@@ -30,7 +30,7 @@ deployment:
         memory: 50Mi
     annotations: {}
     servicemonitor:
-      enabled: true
+      enabled: false
 
 service:
   internalPort: 80
@@ -45,12 +45,10 @@ hpa:
   averageMemoryUtilization: 85
 
 ingress:
-  enabled: true
+  enabled: false
   hostname: example.com
   useTls: true
   paths: {}
-  annotations:
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/use-regex: "true"
+  annotations: {}
 
 config: {}

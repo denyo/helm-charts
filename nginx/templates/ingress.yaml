@@ -9,6 +9,10 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
+{{- if .Values.ingress.useTls }}
+    kubernetes.io/tls-acme: "true"
+{{- end -}}
+    nginx.ingress.kubernetes.io/use-regex: "true"
   {{- range $key, $value := .Values.ingress.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}
@@ -29,6 +33,6 @@ spec:
   tls:
   - hosts:
     - {{ .Values.ingress.hostname }}
-    secretName: tls-secret
+    secretName: {{ template "name" . }}-tls-secret
 {{- end -}}
 {{- end -}}
