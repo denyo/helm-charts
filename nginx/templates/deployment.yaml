@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "name" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+{{- if .Values.deployment.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
+{{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+    spec:
+{{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+      - name: {{ .Values.image.pullSecret }}
+{{- end }}
+      containers:
+      - name: {{ template "name" . }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.service.internalPort }}
+        livenessProbe:
+          httpGet:
+            path: /
+            port: {{ .Values.service.internalPort }}
+        resources:
+{{ toYaml .Values.deployment.resources | indent 12 }}
+        envFrom:
+        - configMapRef:
+            name: {{ template "name" . }}
+{{- if .Values.deployment.metrics.enabled }}
+      - name: metrics
+        image: "{{ .Values.deployment.metrics.image.name }}:{{ .Values.deployment.metrics.image.tag }}"
+        imagePullPolicy: {{ .Values.deployment.metrics.pullPolicy }}
+        args: ["-nginx.scrape-uri", "http://localhost:8080/stub_status"]
+        resources:
+{{ toYaml .Values.deployment.metrics.resources | indent 12 }}
+{{- end -}}

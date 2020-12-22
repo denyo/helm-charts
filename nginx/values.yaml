@@ -1,0 +1,56 @@
+image:
+  name: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
+  # pullSecret: gitlab-registry
+
+deployment:
+  replicas: 1
+  revisionHistoryLimit: 0
+  resources:
+    requests:
+      cpu: 5m
+      memory: 10Mi
+    limits:
+      cpu: 20m
+      memory: 50Mi
+  metrics:
+    enabled: true # controls if you want to deploy a sidecar container that provides metrics for prometheus
+    replicas: 1
+    image:
+      name: nginx/nginx-prometheus-exporter
+      tag: 0.8.0
+    pullPolicy: IfNotPresent
+    resources:
+      requests:
+        cpu: 5m
+        memory: 10Mi
+      limits:
+        cpu: 20m
+        memory: 50Mi
+    annotations: {}
+    servicemonitor:
+      enabled: true
+
+service:
+  internalPort: 80
+  externalPort: 80
+  annotations: {}
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  averageCpuUtilization: 85
+  averageMemoryUtilization: 85
+
+ingress:
+  enabled: true
+  hostname: example.com
+  useTls: true
+  paths: {}
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+
+config: {}
