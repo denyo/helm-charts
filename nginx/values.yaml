@@ -48,7 +48,7 @@ ingress:
   enabled: false
   hostname: example.com
   useTls: true
-  paths: {}
+  paths: []
   annotations: {}
 
 config: {}

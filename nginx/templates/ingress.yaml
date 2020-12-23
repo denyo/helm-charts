@@ -11,7 +11,7 @@ metadata:
   annotations:
 {{- if .Values.ingress.useTls }}
     kubernetes.io/tls-acme: "true"
-{{- end -}}
+{{- end }}
     nginx.ingress.kubernetes.io/use-regex: "true"
   {{- range $key, $value := .Values.ingress.annotations }}
     {{ $key }}: {{ $value | quote }}
@@ -21,7 +21,7 @@ spec:
   - host: {{ .Values.ingress.hostname }}
     http:
       paths:
-{{ toYaml .Values.ingress.paths | indent 8 }}
+{{ toYaml .Values.ingress.paths | indent 6 }}
       - path: /
         pathType: Prefix
         backend:
