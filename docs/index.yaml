@@ -3,9 +3,9 @@ entries:
   elasticsearch-curator:
   - apiVersion: v1
     appVersion: 5.8.3
-    created: "2020-12-23T10:00:32.279872+01:00"
+    created: "2020-12-23T11:14:12.306047+01:00"
     description: A Helm chart for Elasticsearch Curator
-    digest: d16c1d41c9a3191fd8958f2b1c7a13df74ddde345235551c3f154ab987776bcd
+    digest: 8496ffafb0fe7f3366579c0e1e44d0029ead6eaf1887996a1578377b8b4a7611
     home: https://github.com/denyo/helm-charts
     keywords:
     - curator
@@ -21,7 +21,7 @@ entries:
     version: 2.2.5
   - apiVersion: v1
     appVersion: 5.8.3
-    created: "2020-12-23T10:00:32.279114+01:00"
+    created: "2020-12-23T11:14:12.305194+01:00"
     description: A Helm chart for Elasticsearch Curator
     digest: 6bc32b5cac899216a58cefd90b805f4e55754c376985b852c692d102ce6d13db
     home: https://github.com/denyo/helm-charts
@@ -40,11 +40,11 @@ entries:
   nginx:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2020-12-23T10:00:32.280369+01:00"
+    created: "2020-12-23T11:14:12.306693+01:00"
     description: A Helm Chart for nginx
-    digest: 0d56534e80a1cda19897aa8a762472b3a3d952a5dd81e043b51dd2ed7187abb5
+    digest: 668b307ad289bf28185ae4769dfa8213dc0c623bf2513e8ffb2bf6906bb49d00
     name: nginx
     urls:
     - https://denyo.github.io/helm-charts/nginx-1.0.0.tgz
     version: 1.0.0
-generated: "2020-12-23T10:00:32.275661+01:00"
+generated: "2020-12-23T11:14:12.302692+01:00"
