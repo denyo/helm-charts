@@ -9,7 +9,7 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.deployment.replicas }}
-{{- if .Values.deployment.revisionHistoryLimit }}
+{{- if kindIs "float64" .Values.deployment.revisionHistoryLimit }}
   revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
 {{- end }}
   selector:
