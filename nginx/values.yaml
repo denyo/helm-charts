@@ -16,10 +16,9 @@ deployment:
       memory: 50Mi
   metrics:
     enabled: false # controls if you want to deploy a sidecar container that provides metrics for prometheus
-    replicas: 1
     image:
       name: nginx/nginx-prometheus-exporter
-      tag: 0.8.0
+      tag: 0.9.0
     pullPolicy: IfNotPresent
     resources:
       requests:
