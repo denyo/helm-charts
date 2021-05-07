@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "name" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+{{- if kindIs "float64" .Values.deployment.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.deployment.revisionHistoryLimit }}
+{{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+    spec:
+{{- if .Values.image.pullSecret }}
+      imagePullSecrets:
+      - name: {{ .Values.image.pullSecret }}
+{{- end }}
+      containers:
+      - name: {{ template "name" . }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        # give the container up to 5 minutes to start (30 * 10 = 300s)
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: {{ .Values.service.internalPort }}
+          failureThreshold: 30
+          periodSeconds: 10
+        readinessProbe:
+          initialDelaySeconds: 15
+          httpGet:
+            path: /actuator/health/readiness
+            port: {{ .Values.service.internalPort }}
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: {{ .Values.service.internalPort }}
+        resources:
+{{ toYaml .Values.deployment.resources | indent 12 }}
+        envFrom:
+        - configMapRef:
+            name: {{ template "name" . }}
+        - secretRef:
+            name: {{ template "name" . }}

@@ -1,0 +1,67 @@
+image:
+  name: spring-boot
+  tag: latest
+  pullPolicy: IfNotPresent
+  # pullSecret: gitlab-registry
+
+deployment:
+  replicas: 1
+  revisionHistoryLimit: 0
+  resources:
+    requests:
+      cpu: 10m
+      memory: 250Mi
+    limits:
+      cpu: 100m
+      memory: 500Mi
+  metrics:
+    enabled: false
+    servicemonitor:
+      enabled: false
+
+service:
+  internalPort: 8080
+  externalPort: 80
+  annotations: {}
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  averageCpuUtilization: 85
+  averageMemoryUtilization: 85
+
+config:
+  SPRING_PROFILES_ACTIVE: cloud
+
+secrets:
+  DB_PASSWORD: backend
+  DB_USERNAME: backend
+
+# https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
+postgresql:
+  enabled: false
+  fullnameOverride: backend-db
+  postgresqlHost: backend-db
+  postgresqlDatabase: backend
+  postgresqlUsername: backend
+  postgresqlPassword: backend
+  postgresqlPostgresPassword: admin
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+    limits:
+      cpu: 50m
+      memory: 200Mi
+  metrics:
+    enabled: false
+    resources:
+      requests:
+        cpu: 5m
+        memory: 10Mi
+      limits:
+        cpu: 50m
+        memory: 50Mi
+    serviceMonitor:
+      enabled: false
