@@ -16,7 +16,7 @@ deployment:
       memory: 500Mi
   metrics:
     enabled: false
-    servicemonitor:
+    serviceMonitor:
       enabled: false
 
 service:
