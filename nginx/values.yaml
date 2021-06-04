@@ -28,7 +28,7 @@ deployment:
         cpu: 20m
         memory: 50Mi
     annotations: {}
-    servicemonitor:
+    serviceMonitor:
       enabled: false
 
 service:
