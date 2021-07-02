@@ -3,9 +3,9 @@ entries:
   elasticsearch-curator:
   - apiVersion: v1
     appVersion: 5.8.3
-    created: "2021-06-04T08:59:04.8791+02:00"
+    created: "2021-07-02T14:16:41.89246+02:00"
     description: A Helm chart for Elasticsearch Curator
-    digest: 3c1c61d8c254d6660e19446b483adae3f052b16a92ed7e9b7aaddcedbbec69f9
+    digest: 81416c809240b52cc3b596108a61394894e895d0bc1fe3f9d8df63db5977064e
     home: https://github.com/denyo/helm-charts
     keywords:
     - curator
@@ -21,7 +21,7 @@ entries:
     version: 2.2.5
   - apiVersion: v1
     appVersion: 5.8.3
-    created: "2021-06-04T08:59:04.878384+02:00"
+    created: "2021-07-02T14:16:41.891789+02:00"
     description: A Helm chart for Elasticsearch Curator
     digest: 6bc32b5cac899216a58cefd90b805f4e55754c376985b852c692d102ce6d13db
     home: https://github.com/denyo/helm-charts
@@ -40,16 +40,16 @@ entries:
   nginx:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-06-04T08:59:04.880967+02:00"
+    created: "2021-07-02T14:16:41.894502+02:00"
     description: A Helm Chart for nginx
-    digest: 0640db06a942938dd015533002903075348cbbe298e2095a9b2c0f49e1076686
+    digest: ead0d20ac124268f010ebe6a040b0db6f98fafe2e283f1c538d780f61a2a545c
     name: nginx
     urls:
     - https://denyo.github.io/helm-charts/nginx-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-06-04T08:59:04.880522+02:00"
+    created: "2021-07-02T14:16:41.893923+02:00"
     description: A Helm Chart for nginx
     digest: a640331101ef9bf5076600b2fff6675056c608bb77123ce2fefe56192cc89a5a
     name: nginx
@@ -58,7 +58,7 @@ entries:
     version: 1.1.1
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-06-04T08:59:04.880051+02:00"
+    created: "2021-07-02T14:16:41.893427+02:00"
     description: A Helm Chart for nginx
     digest: 6cb5f85fcd48ebf78505de56e12f9d3b600a50c6daee1137fdbccf44cd5c0187
     name: nginx
@@ -67,7 +67,7 @@ entries:
     version: 1.1.0
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-06-04T08:59:04.879589+02:00"
+    created: "2021-07-02T14:16:41.892941+02:00"
     description: A Helm Chart for nginx
     digest: 668b307ad289bf28185ae4769dfa8213dc0c623bf2513e8ffb2bf6906bb49d00
     name: nginx
@@ -77,21 +77,21 @@ entries:
   spring-boot:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-06-04T08:59:04.893003+02:00"
+    created: "2021-07-02T14:16:41.907301+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
       repository: https://charts.bitnami.com/bitnami
       version: 10.4.9
     description: A Helm Chart for spring-boot
-    digest: 53cd48bc5dd552c9d356b35cefd9fdc3b10ddf12f77b0b2994660562b093b783
+    digest: f43c4e5f9b42254fac98eaf8665ac88f42e17414d2bd3162c3feef3a8d0d524b
     name: spring-boot
     urls:
     - https://denyo.github.io/helm-charts/spring-boot-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-06-04T08:59:04.889562+02:00"
+    created: "2021-07-02T14:16:41.90362+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -105,7 +105,7 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-06-04T08:59:04.885906+02:00"
+    created: "2021-07-02T14:16:41.900073+02:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql
@@ -117,4 +117,4 @@ entries:
     urls:
     - https://denyo.github.io/helm-charts/spring-boot-1.0.0.tgz
     version: 1.0.0
-generated: "2021-06-04T08:59:04.877541+02:00"
+generated: "2021-07-02T14:16:41.890856+02:00"
