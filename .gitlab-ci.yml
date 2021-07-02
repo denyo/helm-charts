@@ -1,0 +1,43 @@
+stages:
+  - build
+  # - deploy
+
+default:
+  tags:
+    - blue-box
+
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+
+build:
+  stage: build
+  image: docker:19.03.1
+  services:
+    - docker:19.03.1-dind
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+  script:
+    # TODO: figure out how to store (commit back?) previously packaged charts
+    - ./package-charts.sh
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build -f docker/Dockerfile --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    
+# https://docs.gitlab.com/ee/user/project/clusters/#deploying-to-a-kubernetes-cluster
+# deploy:
+#   stage: deploy
+#   image:
+#     name: alpine/helm
+#     entrypoint: [""]
+#   environment:
+#     name: dev # matches environment scope of cluster defined at https://gitlab.com/mhub1/templates/react-frontend/-/clusters
+#     kubernetes: # needed for cluster access
+#   variables:
+#     NAMESPACE: helm-repository
+#     HELM_RELEASE: helm-repository
+#   script:
+#     - ./deployment/deploy.sh $NAMESPACE $HELM_RELEASE
+#   only:
+#     - master
