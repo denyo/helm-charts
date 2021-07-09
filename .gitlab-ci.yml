@@ -32,11 +32,17 @@ build:
   before_script:
     - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   script:
-    - ls ./dist
+    - ls -l ./dist
     - docker pull $CI_REGISTRY_IMAGE:latest || true
-    # get previous dist folder from latest build
-    - docker run -v $PWD/dist2:/output --entrypoint /bin/sh $CI_REGISTRY_IMAGE:latest -c "rm -rf /output/* && cp -r /usr/share/nginx/html/* /output"
-    - ls ./dist2
+    # rename dist folder from artifact
+    - mv ./dist ./dist-artifact
+    - ls -l ./dist-artifact
+    # get previous dist folder from latest image
+    - docker run -v $PWD/dist:/output --entrypoint /bin/sh $CI_REGISTRY_IMAGE:latest -c "rm -rf /output/* && cp -r /usr/share/nginx/html/* /output"
+    - ls -l ./dist
+    # copy artifact dist into "old" dist
+    - cp -r /dist-artifact/* /dist
+    - ls -l ./dist
     - docker build -f docker/Dockerfile --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
