@@ -41,7 +41,7 @@ build:
     - docker run -v $PWD/dist:/output --entrypoint /bin/sh $CI_REGISTRY_IMAGE:latest -c "rm -rf /output/* && cp -r /usr/share/nginx/html/* /output"
     - ls -l ./dist
     # copy artifact dist into "old" dist
-    - cp -r /dist-artifact/* /dist
+    - cp -r ./dist-artifact/* /dist
     - ls -l ./dist
     - docker build -f docker/Dockerfile --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:latest
