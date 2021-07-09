@@ -71,8 +71,13 @@ helm -n $NAMESPACE upgrade --install $HELM_RELEASE mhub/${title} --version=$CHAR
   renderHtml({
     fileName: "index.html",
     title: "m.hub Helm Repository",
-    content: `<h1>m.hub Helm Repository</h1><ul>${tocItems}</ul><a href="./index.yaml">index.yaml</a>`,
+    content: `<h1>m.hub Helm Repository</h1><h2>Available Charts</h2><ul>${tocItems}</ul>`,
   });
+
+  // get some styling
+  const cssFilePath = require.resolve("github-markdown-css");
+  fs.copyFileSync(cssFilePath, path.resolve(DIST_DIR, "style.css"));
+
   console.log("Finished generating HTML 🎉");
 };
 
