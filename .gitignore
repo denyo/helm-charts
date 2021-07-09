@@ -1,5 +1,6 @@
-/node_modules
-/docs
+node_modules
+docs
+charts/**/README.md
 
 # Mac OS
 .DS_Store
