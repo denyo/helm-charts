@@ -1,6 +1,6 @@
 # Helm Charts
 
-Repository: https://helm.dev.mhub.logikstudio.de
+Repository: <https://helm.dev.mhub.logikstudio.de>
 
 ## Usage
 
