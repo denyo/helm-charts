@@ -1,11 +1,11 @@
 # Helm Charts
 
-Repository: https://denyo.github.io/helm-charts
+Repository: https://helm.dev.mhub.logikstudio.de
 
 ## Usage
 
 ```shell
-helm repo add denyo https://denyo.github.io/helm-charts
+helm repo add mhub https://helm.dev.mhub.logikstudio.de
 helm repo update
 ```
 
