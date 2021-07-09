@@ -1,4 +1,4 @@
-# see local chart in "../nginx"
+# see local chart in "../charts/nginx"
 nameOverride: helm-repository
 
 image:
