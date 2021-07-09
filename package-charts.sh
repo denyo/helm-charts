@@ -5,9 +5,8 @@ chart_dirs=${all_dirs[*]}
 
 dist=./dist/
 delete=($dist "./docker/")
-for del in ${delete[@]}
-do
-   chart_dirs=("${chart_dirs[@]/$del}")
+for del in ${delete[@]}; do
+    chart_dirs=("${chart_dirs[@]/$del/}")
 done
 
 for dir in $chart_dirs; do
@@ -15,4 +14,4 @@ for dir in $chart_dirs; do
     helm package $dir -d $dist
 done
 
-helm repo index "${dist}" --url https://denyo.github.io/helm-charts
+helm repo index "${dist}" --url https://helm.dev.mhub.logikstudio.de
