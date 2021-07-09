@@ -4,9 +4,13 @@ Repository: <https://helm.dev.mhub.logikstudio.de>
 
 ## Changelog
 
+### 3.0.0
+
+- Upgrade to `networking.k8s.io/v1` ingress
+
 ### 2.0.1
 
-- stop deploying configmap if no values are set
+- Stop deploying configmap if no values are set
 
 ## Usage
 
