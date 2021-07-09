@@ -40,9 +40,11 @@ spec:
             port: {{ .Values.service.internalPort }}
         resources:
 {{ toYaml .Values.deployment.resources | indent 12 }}
+{{- if len .Values.config }}
         envFrom:
         - configMapRef:
             name: {{ template "name" . }}
+{{- end }}
 {{- if .Values.deployment.metrics.enabled }}
       - name: metrics
         image: "{{ .Values.deployment.metrics.image.name }}:{{ .Values.deployment.metrics.image.tag }}"
