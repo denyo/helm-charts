@@ -1,0 +1,22 @@
+# see local chart in "../nginx"
+nameOverride: helm-repository
+
+image:
+  name: registry.gitlab.com/mhub1/platform/helm-charts
+  tag: latest
+  pullSecret: gitlab-registry
+
+deployment:
+  metrics:
+    enabled: false # controls if you want to deploy a sidecar container that provides metrics for prometheus
+    serviceMonitor:
+      enabled: true
+
+service:
+  annotations: {}
+
+ingress:
+  enabled: true
+  hostname: helm.dev.mhub.logikstudio.de
+  useTls: true
+  annotations: {}

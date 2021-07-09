@@ -1,7 +1,7 @@
 stages:
   - prepare
   - build
-  # - deploy
+  - deploy
 
 default:
   tags:
@@ -45,18 +45,18 @@ build:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
 
 # https://docs.gitlab.com/ee/user/project/clusters/#deploying-to-a-kubernetes-cluster
-# deploy:
-#   stage: deploy
-#   image:
-#     name: alpine/helm
-#     entrypoint: [""]
-#   environment:
-#     name: dev # matches environment scope of cluster defined at https://gitlab.com/mhub1/templates/react-frontend/-/clusters
-#     kubernetes: # needed for cluster access
-#   variables:
-#     NAMESPACE: helm-repository
-#     HELM_RELEASE: helm-repository
-#   script:
-#     - ./deployment/deploy.sh $NAMESPACE $HELM_RELEASE
-#   only:
-#     - master
+deploy:
+  stage: deploy
+  image:
+    name: alpine/helm
+    entrypoint: [""]
+  environment:
+    name: dev # matches environment scope of cluster defined at https://gitlab.com/mhub1/platform/helm-charts/-/clusters
+    kubernetes: # needed for cluster access
+  variables:
+    NAMESPACE: helm-repository
+    HELM_RELEASE: helm-repository
+  script:
+    - ./deployment/deploy.sh $NAMESPACE $HELM_RELEASE
+  only:
+    - master
