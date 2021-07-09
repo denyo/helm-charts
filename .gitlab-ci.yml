@@ -24,19 +24,6 @@ package-charts:
       - dist/
     expire_in: 1 weeks
 
-generate-docs:
-  stage: prepare
-  image:
-    name: node:14.16.1-alpine
-    entrypoint: [""]
-  script:
-    - yarn
-    - yarn build
-  artifacts:
-    paths:
-      - docs/
-    expire_in: 1 weeks
-
 build:
   stage: build
   image: docker:19.03.1
@@ -46,14 +33,14 @@ build:
     - echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   script:
     - docker pull $CI_REGISTRY_IMAGE:latest || true
-    # rename dist folder from artifact
+    # rename dist folder from restored artifact
     - mv ./dist ./dist-artifact
-    # get previous dist folder from latest image
+    # get "old" dist folder from latest image
     - docker run -v $PWD/dist:/output --entrypoint /bin/sh $CI_REGISTRY_IMAGE:latest -c "rm -rf /output/* && cp -r /usr/share/nginx/html/* /output"
-    # copy dist artifact into previous dist
+    # copy dist artifact into "old" dist that contains previous packaged charts
     - cp -r ./dist-artifact/* ./dist
-    # copy docs artifact into dist
-    - cp -r ./docs/* ./dist
+    # generate chart readme files
+    - docker run --rm --volume "$PWD/charts:/helm-docs" -u $(id -u) jnorwood/helm-docs:latest
     - docker build -f docker/Dockerfile --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
