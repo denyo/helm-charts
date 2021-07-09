@@ -11,17 +11,30 @@ variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""
 
-prepare:
+package-charts:
   stage: prepare
   image:
     name: alpine/helm
-    entrypoint: ['']
+    entrypoint: [""]
   script:
     - apk add --no-cache bash
     - ./package-charts.sh
   artifacts:
     paths:
       - dist/
+    expire_in: 1 weeks
+
+generate-docs:
+  stage: prepare
+  image:
+    name: node:14.16.1-alpine
+    entrypoint: [""]
+  script:
+    - yarn
+    - yarn build
+  artifacts:
+    paths:
+      - docs/
     expire_in: 1 weeks
 
 build:
@@ -37,8 +50,10 @@ build:
     - mv ./dist ./dist-artifact
     # get previous dist folder from latest image
     - docker run -v $PWD/dist:/output --entrypoint /bin/sh $CI_REGISTRY_IMAGE:latest -c "rm -rf /output/* && cp -r /usr/share/nginx/html/* /output"
-    # copy artifact dist into previous dist
+    # copy dist artifact into previous dist
     - cp -r ./dist-artifact/* ./dist
+    # copy docs artifact into dist
+    - cp -r ./docs/* ./dist
     - docker build -f docker/Dockerfile --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:latest
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
