@@ -24,6 +24,13 @@ service:
   externalPort: 80
   annotations: {}
 
+ingress:
+  enabled: false
+  hostname: example.com
+  useTls: true
+  paths: []
+  annotations: {}
+
 hpa:
   enabled: false
   minReplicas: 1
