@@ -5,7 +5,7 @@ stages:
 
 default:
   tags:
-    - blue-box
+    - kubernetes-runner
 
 variables:
   DOCKER_HOST: tcp://docker:2375
