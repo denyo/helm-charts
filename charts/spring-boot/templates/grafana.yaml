@@ -1,0 +1,13 @@
+{{ range $path, $_ :=  .Files.Glob  "grafana/**.json" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-{{ $.Chart.Name }}-{{ (split "." (base $path))._0 }}
+  labels:
+    grafana_dashboard: grafana-{{ $.Chart.Name }}-{{ (split "." (base $path))._0 }}
+data:
+  {{ $.Chart.Name }}-{{ (split "." (base $path))._0 }}: |-
+    {{- range $.Files.Lines $path }}
+        {{ . }}{{- end }}
+---
+{{ end }}

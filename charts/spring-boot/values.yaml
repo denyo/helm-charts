@@ -65,3 +65,9 @@ postgresql:
         memory: 50Mi
     serviceMonitor:
       enabled: false
+
+alertmanager:
+  enabled: false
+  # https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/alerting.md
+  receivers: {}
+  route: {}
