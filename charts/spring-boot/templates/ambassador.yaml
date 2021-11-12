@@ -15,7 +15,7 @@ spec:
 {{ toYaml .Values.ambassador.acmeProvider | indent 4 }}
   {{- end }}
 
-{{- range $value := .Values.ambassador.mappings }}  
+{{- range $value := .Values.ambassador.mappings }}
 ---
 apiVersion: getambassador.io/v2
 kind: Mapping
@@ -27,8 +27,9 @@ metadata:
     release: {{ $.Release.Name }}
     heritage: {{ $.Release.Service }}
 spec:
-  prefix: {{ $value.prefix }}
-  service: {{ $value.service }}
+  {{- range $key, $val := $value }}
+  {{ $key }}: {{ $val }}
+  {{- end }}
   host: {{ $.Values.ambassador.hostname }}
 {{- end }}
 {{- end -}}
