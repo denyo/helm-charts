@@ -1,0 +1,34 @@
+{{- if .Values.ambassador.enabled }}
+apiVersion: getambassador.io/v2
+metadata:
+  name: {{ template "name" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+kind: Host
+spec:
+  hostname: {{ .Values.ambassador.hostname }}
+  {{- if .Values.ambassador.acmeProvider }}
+  acmeProvider:
+{{ toYaml .Values.ambassador.acmeProvider | indent 4 }}
+  {{- end }}
+
+{{- range $value := .Values.ambassador.mappings }}  
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: {{ template "name" $ }}
+  labels:
+    app: {{ template "name" $ }}
+    chart: "{{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}"
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  prefix: {{ $value.prefix }}
+  service: {{ $value.service }}
+  host: {{ $.Values.ambassador.hostname }}
+{{- end }}
+{{- end -}}

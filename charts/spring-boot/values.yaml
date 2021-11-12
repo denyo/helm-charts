@@ -31,6 +31,18 @@ ingress:
   paths: []
   annotations: {}
 
+ambassador:
+  enabled: false
+  hostname: example.com
+  acmeProvider: {}
+    # authority: https://acme-v02.api.letsencrypt.org/directory
+    # email: email@mhp.com
+  mappings: []
+    # - prefix: /
+    #   service: frontend
+    # - prefix: /api
+    #   service: backend
+
 hpa:
   enabled: false
   minReplicas: 1
